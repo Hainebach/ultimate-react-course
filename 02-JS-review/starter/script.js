@@ -142,3 +142,134 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+/* destructuring
+
+const book = getBook(3);
+book;
+
+const {
+  author,
+  title,
+  pages,
+  publicationDate,
+  genres,
+  hasMovieAdaptation,
+  id,
+} = book;
+
+console.log(author, title, genres);
+
+const [primaryGenre, secondaryGenre, ...otherGenres] = genres;
+const newGenres = [...genres, "epic fantasy"];
+newGenres;
+
+console.log(primaryGenre, secondaryGenre, otherGenres);
+
+const updatedBook = {
+  ...book,
+  // adding a new property
+  moviePublicationDate: "2001-12-19",
+  // overwriting an existing property
+  pages: 1210,
+};
+updatedBook;
+
+const restObject = { alternativeTitle: "the greatest book", ...book };
+console.log(restObject);
+console.log(book);
+// function getYear(str) {
+//   return str.split("-")[0];
+// }
+
+const getYear = (str) => str.split("-")[0];
+
+console.log(getYear(publicationDate));
+
+const summery = `${title}, is a ${pages} long book, was written by ${author} and was published in ${getYear(
+  publicationDate
+)}, the book has ${hasMovieAdaptation ? "" : "not"} been adapted to a movie`;
+summery;
+
+const pagesRange = pages > 1000 ? "over a thounsand" : "less than a thousand";
+
+pagesRange;
+
+console.log(`the book is ${pagesRange} pages long`);
+
+console.log(true || "some string");
+
+
+
+console.log(getTotal(book));
+
+console.log(book.reviews.goodreads.reviewsCount);
+
+function getTotalReviewsCount(book) {
+  return (
+    book.reviews?.librarything?.reviewsCount ??
+    0 + book.reviews?.goodreads?.reviewsCount ??
+    0
+  );
+}
+
+const books = getBooks();
+
+const x = [1, 2, 3, 4, 5].map((el) => el * 2);
+
+console.log(x);
+
+const booksTitles = books.map((i) => ({
+  title: i.title,
+  author: i.author,
+  reviewsCount: getTotalReviewsCount(i),
+}));
+booksTitles;
+
+const longBooksWithMovie = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation);
+longBooksWithMovie;
+
+const adventureBooks = books
+  .filter((books) => books.genres.includes("adventure"))
+  .map((book) => book.title);
+
+adventureBooks;
+
+const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
+pagesAllBooks;
+
+const sortedByPages = books.slice().sort((a, b) => a.pages - b.pages);
+sortedByPages;
+
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the Chamber of Secrets",
+  author: "J. K. Rowling",
+};
+
+const booksAfterAdd = [...books, newBook];
+booksAfterAdd;
+
+const booksAfterDelete = booksAfterAdd.filter((books) => books.id !== 3);
+booksAfterDelete;
+
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+  book.id === 1 ? { ...book, pages: 1210 } : book
+);
+
+booksAfterUpdate;
+*/
+
+// fetch("https://jsonplaceholder.typicode.com/todos")
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
+
+async function getTodos() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await res.json();
+  console.log(data);
+}
+getTodos();
+console.log("ploop");
